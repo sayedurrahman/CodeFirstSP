@@ -2,22 +2,18 @@
 
 namespace CFSP.Data
 {
-    public class CFStoredProcedure
+    public static class CFStoredProcedure
     {
-        private readonly ApplicationDbContext _context;
-        private List<string> storedProcedures = new List<string>();
-        public CFStoredProcedure(ApplicationDbContext context)
-        {
-            _context = context;
-            storedProcedures.Add("CREATE PROCEDURE SP_AllStudents AS Select * From Students");
-        }
+        private static List<string> storedProcedures = new List<string>()
+            {
+                "CREATE PROCEDURE SP_AllStudents AS Select * From Students"
+            };
 
-
-        public void CreateSP()
+        public static void CreateSP(ApplicationDbContext context)
         {
             foreach (var sp in storedProcedures)
             {
-                _context.Database.ExecuteSqlRaw(sp);
+                context.Database.ExecuteSqlRaw(sp);
             }
         }
     }

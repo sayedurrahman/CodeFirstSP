@@ -20,7 +20,7 @@ namespace CFSP.Controllers
         [HttpGet(Name = "GetStudents")]
         public IEnumerable<Student> Get()
         {
-            return _context.Students.ToList();
+            return _context.Students.FromSqlRaw("EXEC SP_AllStudents");
         }
     }
 }

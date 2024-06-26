@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using CFSP.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +20,7 @@ using (var scope = app.Services.CreateScope())
     // Delete and recreate the database on each startup
     dbContext.Database.EnsureDeleted();
     dbContext.Database.EnsureCreated();
-    
-
-
-    // For production, you would typically use migrations:
-    // dbContext.Database.Migrate();
+    CFStoredProcedure.CreateSP(dbContext);
 }
 
 // Configure the HTTP request pipeline.
